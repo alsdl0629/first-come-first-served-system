@@ -21,6 +21,9 @@ class ApplyServiceImplTest {
     private ApplyServiceWithRedisIncr applyServiceWithRedisIncr;
 
     @Autowired
+    private ApplyServiceWithProducer applyServiceWithProducer;
+
+    @Autowired
     private CouponRepository couponRepository;
 
     @Test
@@ -51,7 +54,7 @@ class ApplyServiceImplTest {
             long userId = i;
             executorService.submit(() -> {
                 try {
-                    applyServiceWithRedisIncr.apply(userId);
+                    applyServiceWithProducer.apply(userId);
                 } finally {
                     latch.countDown();
                 }
